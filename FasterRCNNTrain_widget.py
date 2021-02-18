@@ -36,6 +36,11 @@ class FasterRCNNTrainWidget(core.CProtocolTaskWidget):
         self.check_onnx.setChecked(self.parameters.export_onnx)
         self.grid_layout.addWidget(self.check_onnx, row+1, 1)
 
+        self.browse_folder = utils.append_browse_file(self.grid_layout, label="Output folder",
+                                                      path=self.parameters.output_folder,
+                                                      tooltip="Select output folder",
+                                                      mode=QFileDialog.Directory)
+
         # PyQt -> Qt wrapping
         layout_ptr = utils.PyQtToQt(self.grid_layout)
 
@@ -51,6 +56,7 @@ class FasterRCNNTrainWidget(core.CProtocolTaskWidget):
         self.parameters.input_size = self.spin_size.value()
         self.parameters.export_pth = self.check_pth.isChecked()
         self.parameters.export_onnx = self.check_onnx.isChecked()
+        self.parameters.output_folder = self.browse_folder.path
 
         # Send signal to launch the process
         self.emitApply(self.parameters)
