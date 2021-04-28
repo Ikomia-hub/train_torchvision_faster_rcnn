@@ -3,7 +3,7 @@ from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
 # Your imports below
-from FasterRCNN import FasterRCNN
+import FasterRCNN
 
 
 # --------------------
@@ -66,7 +66,7 @@ class FasterRCNNTrainProcess(dnntrain.TrainProcess):
         else:
             self.setParam(copy.deepcopy(param))
 
-        self.trainer = FasterRCNN(self.getParam())
+        self.trainer = FasterRCNN.FasterRCNN(self.getParam())
 
     def getProgressSteps(self, eltCount=1):
         # Function returning the number of progress steps for this process
@@ -124,7 +124,7 @@ class FasterRCNNTrainProcessFactory(dataprocess.CProcessFactory):
                                 "You must connect this process behind a suitable dataset loader. You can find one " \
                                 "in the Ikomia marketplace or implement your own via the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.1.1"
+        self.info.version = "1.1.2"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"
