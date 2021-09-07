@@ -1,6 +1,4 @@
 from ikomia import dataprocess
-import FasterRCNNTrain_process as processMod
-import FasterRCNNTrain_widget as widgetMod
 
 
 # --------------------
@@ -13,9 +11,11 @@ class FasterRCNNTrain(dataprocess.CPluginProcessInterface):
         dataprocess.CPluginProcessInterface.__init__(self)
 
     def getProcessFactory(self):
+        from FasterRCNNTrain.FasterRCNNTrain_process import FasterRCNNTrainProcessFactory
         # Instantiate process object
-        return processMod.FasterRCNNTrainProcessFactory()
+        return FasterRCNNTrainProcessFactory()
 
     def getWidgetFactory(self):
+        from FasterRCNNTrain.FasterRCNNTrain_widget import FasterRCNNTrainWidgetFactory
         # Instantiate associated widget object
-        return widgetMod.FasterRCNNTrainWidgetFactory()
+        return FasterRCNNTrainWidgetFactory()

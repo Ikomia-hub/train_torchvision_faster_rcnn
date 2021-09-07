@@ -1,5 +1,6 @@
 from ikomia import utils, core, dataprocess
-import FasterRCNNTrain_process as processMod
+from ikomia.utils import pyqtutils, qtconversion
+from FasterRCNNTrain.FasterRCNNTrain_process import FasterRCNNTrainParam
 # PyQt GUI framework
 from PyQt5.QtWidgets import *
 
@@ -8,27 +9,29 @@ from PyQt5.QtWidgets import *
 # - Class which implements widget associated with the process
 # - Inherits core.CProtocolTaskWidget from Ikomia API
 # --------------------
-class FasterRCNNTrainWidget(core.CProtocolTaskWidget):
+class FasterRCNNTrainWidget(core.CWorkflowTaskWidget):
 
     def __init__(self, param, parent):
-        core.CProtocolTaskWidget.__init__(self, parent)
+        core.CWorkflowTaskWidget.__init__(self, parent)
 
         if param is None:
-            self.parameters = processMod.FasterRCNNTrainParam()
+            self.parameters = FasterRCNNTrainParam()
         else:
             self.parameters = param
 
         # Create layout : QGridLayout by default
         self.grid_layout = QGridLayout()
-        self.spin_workers = utils.append_spin(self.grid_layout, label="Data loader workers",
-                                              value=self.parameters.cfg["num_workers"], min=0, max=8, step=2)
+        self.spin_workers = pyqtutils.append_spin(self.grid_layout, label="Data loader workers",
+                                                  value=self.parameters.cfg["num_workers"], min=0, max=8, step=2)
 
-        self.spin_batch = utils.append_spin(self.grid_layout, label="Batch size",
-                                            value=self.parameters.cfg["batch_size"], min=1, max=1024, step=1)
+        self.spin_batch = pyqtutils.append_spin(self.grid_layout, label="Batch size",
+                                                value=self.parameters.cfg["batch_size"], min=1, max=1024, step=1)
 
-        self.spin_epoch = utils.append_spin(self.grid_layout, label="Epochs", value=self.parameters.cfg["epochs"], min=1)
+        self.spin_epoch = pyqtutils.append_spin(self.grid_layout, label="Epochs",
+                                                value=self.parameters.cfg["epochs"], min=1)
 
-        self.spin_size = utils.append_spin(self.grid_layout, label="Input size", value=self.parameters.cfg["input_size"])
+        self.spin_size = pyqtutils.append_spin(self.grid_layout, label="Input size",
+                                               value=self.parameters.cfg["input_size"])
 
         label_model_format = QLabel("Model format")
         row = self.grid_layout.rowCount()
@@ -40,13 +43,13 @@ class FasterRCNNTrainWidget(core.CProtocolTaskWidget):
         self.check_onnx.setChecked(self.parameters.cfg["export_onnx"])
         self.grid_layout.addWidget(self.check_onnx, row+1, 1)
 
-        self.browse_folder = utils.append_browse_file(self.grid_layout, label="Output folder",
-                                                      path=self.parameters.cfg["output_folder"],
-                                                      tooltip="Select output folder",
-                                                      mode=QFileDialog.Directory)
+        self.browse_folder = pyqtutils.append_browse_file(self.grid_layout, label="Output folder",
+                                                          path=self.parameters.cfg["output_folder"],
+                                                          tooltip="Select output folder",
+                                                          mode=QFileDialog.Directory)
 
         # PyQt -> Qt wrapping
-        layout_ptr = utils.PyQtToQt(self.grid_layout)
+        layout_ptr = qtconversion.PyQtToQt(self.grid_layout)
 
         # Set widget layout
         self.setLayout(layout_ptr)

@@ -4,9 +4,9 @@ import torch
 from datetime import datetime
 from ikomia.dnn.torch import models, datasetmapper
 import ikomia.dnn.torch.utils as ikutils
-from torchvisionref import transforms
-from torchvisionref import utils
-from torchvisionref.engine import train_one_epoch, evaluate
+from FasterRCNNTrain.torchvisionref import transforms
+from FasterRCNNTrain.torchvisionref import utils
+from FasterRCNNTrain.torchvisionref.engine import train_one_epoch, evaluate
 
 
 class FasterRCNN:

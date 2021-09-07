@@ -1,19 +1,19 @@
 from ikomia import dataprocess
+from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
-# Your imports below
-import FasterRCNN
+from FasterRCNNTrain import FasterRCNN
 
 
 # --------------------
 # - Class to handle the process parameters
 # - Inherits core.CProtocolTaskParam from Ikomia API
 # --------------------
-class FasterRCNNTrainParam(dnntrain.TrainParam):
+class FasterRCNNTrainParam(TaskParam):
 
     def __init__(self):
-        dnntrain.TrainParam.__init__(self)
+        TaskParam.__init__(self)
         # Place default value initialization here
         self.cfg["model_name"] = 'fasterRCNN'
         self.cfg["batch_size"] = 8
@@ -108,10 +108,10 @@ class FasterRCNNTrainProcess(dnntrain.TrainProcess):
 # - Factory class to build process object
 # - Inherits dataprocess.CProcessFactory from Ikomia API
 # --------------------
-class FasterRCNNTrainProcessFactory(dataprocess.CProcessFactory):
+class FasterRCNNTrainProcessFactory(dataprocess.CTaskFactory):
 
     def __init__(self):
-        dataprocess.CProcessFactory.__init__(self)
+        dataprocess.CTaskFactory.__init__(self)
         # Set process information as string here
         self.info.name = "FasterRCNN Train"
         self.info.shortDescription = "Training process for Faster R-CNN convolutional network."

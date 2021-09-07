@@ -13,7 +13,7 @@ import pycocotools.mask as mask_util
 
 from collections import defaultdict
 
-import torchvisionref.utils as utils
+import FasterRCNNTrain.torchvisionref.utils as utils
 
 
 class CocoEvaluator(object):
