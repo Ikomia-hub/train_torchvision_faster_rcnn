@@ -1,6 +1,6 @@
 from ikomia import utils, core, dataprocess
 from ikomia.utils import pyqtutils, qtconversion
-from FasterRCNNTrain.FasterRCNNTrain_process import FasterRCNNTrainParam
+from train_torchvision_faster_rcnn.train_torchvision_faster_rcnn_process import TrainFasterRcnnParam
 # PyQt GUI framework
 from PyQt5.QtWidgets import *
 
@@ -9,13 +9,13 @@ from PyQt5.QtWidgets import *
 # - Class which implements widget associated with the process
 # - Inherits core.CProtocolTaskWidget from Ikomia API
 # --------------------
-class FasterRCNNTrainWidget(core.CWorkflowTaskWidget):
+class TrainFasterRcnnWidget(core.CWorkflowTaskWidget):
 
     def __init__(self, param, parent):
         core.CWorkflowTaskWidget.__init__(self, parent)
 
         if param is None:
-            self.parameters = FasterRCNNTrainParam()
+            self.parameters = TrainFasterRcnnParam()
         else:
             self.parameters = param
 
@@ -73,13 +73,13 @@ class FasterRCNNTrainWidget(core.CWorkflowTaskWidget):
 # - Factory class to build process widget object
 # - Inherits dataprocess.CWidgetFactory from Ikomia API
 # --------------------
-class FasterRCNNTrainWidgetFactory(dataprocess.CWidgetFactory):
+class TrainFasterRcnnWidgetFactory(dataprocess.CWidgetFactory):
 
     def __init__(self):
         dataprocess.CWidgetFactory.__init__(self)
         # Set the name of the process -> it must be the same as the one declared in the process factory class
-        self.name = "FasterRCNN Train"
+        self.name = "train_torchvision_faster_rcnn"
 
     def create(self, param):
         # Create widget object
-        return FasterRCNNTrainWidget(param, None)
+        return TrainFasterRcnnWidget(param, None)

@@ -3,14 +3,14 @@ from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
-from FasterRCNNTrain import FasterRCNN
+from train_torchvision_faster_rcnn import faster_rcnn
 
 
 # --------------------
 # - Class to handle the process parameters
 # - Inherits core.CProtocolTaskParam from Ikomia API
 # --------------------
-class FasterRCNNTrainParam(TaskParam):
+class TrainFasterRcnnParam(TaskParam):
 
     def __init__(self):
         TaskParam.__init__(self)
@@ -47,7 +47,7 @@ class FasterRCNNTrainParam(TaskParam):
 # - Class which implements the process
 # - Inherits core.CProtocolTask or derived from Ikomia API
 # --------------------
-class FasterRCNNTrainProcess(dnntrain.TrainProcess):
+class TrainFasterRcnn(dnntrain.TrainProcess):
 
     def __init__(self, name, param):
         dnntrain.TrainProcess.__init__(self, name, param)
@@ -56,11 +56,11 @@ class FasterRCNNTrainProcess(dnntrain.TrainProcess):
 
         # Create parameters class
         if param is None:
-            self.setParam(FasterRCNNTrainParam())
+            self.setParam(TrainFasterRcnnParam())
         else:
             self.setParam(copy.deepcopy(param))
 
-        self.trainer = FasterRCNN.FasterRCNN(self.getParam())
+        self.trainer = faster_rcnn.FasterRCNN(self.getParam())
         self.enableTensorboard(False)
 
     def getProgressSteps(self, eltCount=1):
@@ -108,12 +108,12 @@ class FasterRCNNTrainProcess(dnntrain.TrainProcess):
 # - Factory class to build process object
 # - Inherits dataprocess.CProcessFactory from Ikomia API
 # --------------------
-class FasterRCNNTrainProcessFactory(dataprocess.CTaskFactory):
+class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
 
     def __init__(self):
         dataprocess.CTaskFactory.__init__(self)
         # Set process information as string here
-        self.info.name = "FasterRCNN Train"
+        self.info.name = "train_torchvision_faster_rcnn"
         self.info.shortDescription = "Training process for Faster R-CNN convolutional network."
         self.info.description = "Training process for Faster RCNN convolutional network. The process enables " \
                                 "to train Faster R-CNN network with ResNet50 backbone for transfer learning. " \
@@ -131,4 +131,4 @@ class FasterRCNNTrainProcessFactory(dataprocess.CTaskFactory):
 
     def create(self, param=None):
         # Create process object
-        return FasterRCNNTrainProcess(self.info.name, param)
+        return TrainFasterRcnn(self.info.name, param)
