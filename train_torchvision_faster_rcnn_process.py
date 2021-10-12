@@ -51,8 +51,6 @@ class TrainFasterRcnn(dnntrain.TrainProcess):
 
     def __init__(self, name, param):
         dnntrain.TrainProcess.__init__(self, name, param)
-        # Add input/output of the process here
-        self.addInput(datasetio.IkDatasetIO())
 
         # Create parameters class
         if param is None:
