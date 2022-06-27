@@ -4,6 +4,7 @@ from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
 from train_torchvision_faster_rcnn import faster_rcnn
+from distutils.util import strtobool
 
 
 # --------------------
@@ -38,8 +39,8 @@ class TrainFasterRcnnParam(TaskParam):
         self.cfg["momentum"] = float(param_map["momentum"])
         self.cfg["learning_rate"] = float(param_map["learning_rate"])
         self.cfg["weight_decay"] = float(param_map["weight_decay"])
-        self.cfg["export_pth"] = bool(param_map["export_pth"])
-        self.cfg["export_onnx"] = bool(param_map["export_onnx"])
+        self.cfg["export_pth"] = strtobool(param_map["export_pth"])
+        self.cfg["export_onnx"] = strtobool(param_map["export_onnx"])
         self.cfg["output_folder"] = param_map["output_folder"]
 
 
@@ -118,7 +119,7 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
                                 "You must connect this process behind a suitable dataset loader. You can find one " \
                                 "in the Ikomia marketplace or implement your own via the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.2.1"
+        self.info.version = "1.2.2"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"
