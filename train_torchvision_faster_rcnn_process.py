@@ -1,10 +1,9 @@
-from ikomia import dataprocess
+from ikomia import utils, dataprocess
 from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
 import copy
 from train_torchvision_faster_rcnn import faster_rcnn
-from distutils.util import strtobool
 
 
 # --------------------
@@ -39,8 +38,8 @@ class TrainFasterRcnnParam(TaskParam):
         self.cfg["momentum"] = float(param_map["momentum"])
         self.cfg["learning_rate"] = float(param_map["learning_rate"])
         self.cfg["weight_decay"] = float(param_map["weight_decay"])
-        self.cfg["export_pth"] = strtobool(param_map["export_pth"])
-        self.cfg["export_onnx"] = strtobool(param_map["export_onnx"])
+        self.cfg["export_pth"] = utils.strtobool(param_map["export_pth"])
+        self.cfg["export_onnx"] = utils.strtobool(param_map["export_onnx"])
         self.cfg["output_folder"] = param_map["output_folder"]
 
 
