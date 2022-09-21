@@ -78,7 +78,7 @@ class TrainFasterRcnn(dnntrain.TrainProcess):
 
         # Get dataset path from input
         dataset_input = self.getInput(0)
-        param.classes = dataset_input.getCategoryCount()
+        param.cfg["classes"] = dataset_input.getCategoryCount()
 
         # Call beginTaskRun for initialization
         self.beginTaskRun()
@@ -118,7 +118,7 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
                                 "You must connect this process behind a suitable dataset loader. You can find one " \
                                 "in the Ikomia marketplace or implement your own via the Ikomia API."
         self.info.authors = "Ikomia"
-        self.info.version = "1.2.2"
+        self.info.version = "1.2.3"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repo = "https://github.com/Ikomia-dev"
