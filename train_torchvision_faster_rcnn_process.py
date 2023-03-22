@@ -28,7 +28,7 @@ class TrainFasterRcnnParam(TaskParam):
         self.cfg["export_onnx"] = False
         self.cfg["output_folder"] = os.path.dirname(os.path.realpath(__file__)) + "/models/"
 
-    def setParamMap(self, param_map):
+    def set_values(self, param_map):
         self.cfg["model_name"] = param_map["model_name"]
         self.cfg["batch_size"] = int(param_map["batch_size"])
         self.cfg["classes"] = int(param_map["classes"])
@@ -54,17 +54,17 @@ class TrainFasterRcnn(dnntrain.TrainProcess):
 
         # Create parameters class
         if param is None:
-            self.setParam(TrainFasterRcnnParam())
+            self.set_param_object(TrainFasterRcnnParam())
         else:
-            self.setParam(copy.deepcopy(param))
+            self.set_param_object(copy.deepcopy(param))
 
-        self.trainer = faster_rcnn.FasterRCNN(self.getParam())
-        self.enableTensorboard(False)
+        self.trainer = faster_rcnn.FasterRCNN(self.get_param_object())
+        self.enable_tensorboard(False)
 
-    def getProgressSteps(self):
+    def get_progress_steps(self):
         # Function returning the number of progress steps for this process
         # This is handled by the main progress bar of Ikomia application
-        param = self.getParam()
+        param = self.get_param_object()
         if param is not None:
             return param.cfg["epochs"]
         else:
@@ -74,26 +74,26 @@ class TrainFasterRcnn(dnntrain.TrainProcess):
         # Core function of your process
 
         # Get parameters :
-        param = self.getParam()
+        param = self.get_param_object()
 
         # Get dataset path from input
-        dataset_input = self.getInput(0)
-        param.cfg["classes"] = dataset_input.getCategoryCount()
+        dataset_input = self.get_input(0)
+        param.cfg["classes"] = dataset_input.get_category_count()
 
-        # Call beginTaskRun for initialization
-        self.beginTaskRun()
+        # Call begin_task_run for initialization
+        self.begin_task_run()
 
         print("Starting training job...")
         self.trainer.launch(dataset_input, self.on_epoch_end)
 
         print("Training job finished.")
 
-        # Call endTaskRun to finalize process
-        self.endTaskRun()
+        # Call end_task_run to finalize process
+        self.end_task_run()
 
     def on_epoch_end(self, metrics):
         # Step progress bar:
-        self.emitStepProgress()
+        self.emit_step_progress()
         # Log metrics
         self.log_metrics(metrics)
 
@@ -112,7 +112,7 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
         dataprocess.CTaskFactory.__init__(self)
         # Set process information as string here
         self.info.name = "train_torchvision_faster_rcnn"
-        self.info.shortDescription = "Training process for Faster R-CNN convolutional network."
+        self.info.short_description = "Training process for Faster R-CNN convolutional network."
         self.info.description = "Training process for Faster RCNN convolutional network. The process enables " \
                                 "to train Faster R-CNN network with ResNet50 backbone for transfer learning. " \
                                 "You must connect this process behind a suitable dataset loader. You can find one " \
@@ -124,7 +124,7 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
         self.info.repo = "https://github.com/Ikomia-dev"
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Detection"
-        self.info.iconPath = "icons/pytorch-logo.png"
+        self.info.icon_path = "icons/pytorch-logo.png"
         self.info.keywords = "object,detection,instance,ResNet,pytorch,train"
 
     def create(self, param=None):
