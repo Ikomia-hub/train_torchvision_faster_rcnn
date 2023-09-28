@@ -113,15 +113,12 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
         # Set process information as string here
         self.info.name = "train_torchvision_faster_rcnn"
         self.info.short_description = "Training process for Faster R-CNN convolutional network."
-        self.info.description = "Training process for Faster RCNN convolutional network. The process enables " \
-                                "to train Faster R-CNN network with ResNet50 backbone for transfer learning. " \
-                                "You must connect this process behind a suitable dataset loader. You can find one " \
-                                "in the Ikomia marketplace or implement your own via the Ikomia API."
         self.info.authors = "Ikomia"
         self.info.version = "1.2.3"
         self.info.year = 2020
         self.info.license = "MIT License"
-        self.info.repo = "https://github.com/Ikomia-dev"
+        self.info.repository = "https://github.com/Ikomia-hub/train_torchvision_faster_rcnn"
+        self.info.original_repository = "https://github.com/pytorch/vision"
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Detection"
         self.info.icon_path = "icons/pytorch-logo.png"
