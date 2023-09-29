@@ -1,4 +1,4 @@
-from ikomia import utils, dataprocess
+from ikomia import utils, core, dataprocess
 from ikomia.core.task import TaskParam
 from ikomia.dnn import dnntrain, datasetio
 import os
@@ -123,6 +123,8 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
         self.info.path = "Plugins/Python/Detection"
         self.info.icon_path = "icons/pytorch-logo.png"
         self.info.keywords = "object,detection,instance,ResNet,pytorch,train"
+        self.info.algo_type = core.AlgoType.TRAIN
+        self.info.algo_tasks = "OBJECT_DETECTION"
 
     def create(self, param=None):
         # Create process object
