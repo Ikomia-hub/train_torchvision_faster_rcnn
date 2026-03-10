@@ -26,7 +26,8 @@ class TrainFasterRcnnParam(TaskParam):
         self.cfg["weight_decay"] = 0.0005
         self.cfg["export_pth"] = True
         self.cfg["export_onnx"] = False
-        self.cfg["output_folder"] = os.path.dirname(os.path.realpath(__file__)) + "/models/"
+        self.cfg["output_folder"] = os.path.dirname(
+            os.path.realpath(__file__)) + "/models/"
 
     def set_values(self, param_map):
         self.cfg["model_name"] = param_map["model_name"]
@@ -114,7 +115,9 @@ class TrainFasterRcnnFactory(dataprocess.CTaskFactory):
         self.info.name = "train_torchvision_faster_rcnn"
         self.info.short_description = "Training process for Faster R-CNN convolutional network."
         self.info.authors = "Ikomia"
-        self.info.version = "1.2.4"
+        self.info.version = "2.0.0"
+        self.info.min_ikomia_version = "0.15.0"
+        self.info.min_python_version = "3.11.0"
         self.info.year = 2020
         self.info.license = "MIT License"
         self.info.repository = "https://github.com/Ikomia-hub/train_torchvision_faster_rcnn"
